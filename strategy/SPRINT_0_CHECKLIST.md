@@ -7,10 +7,10 @@
 [x] venture-studio repo created + cloned locally
 [x] commit.gpgsign false set on new repo
 [x] node --version confirms v18+ (running v22)
-[ ] Create .env file with all saved values
-[ ] Run schema.sql in Supabase SQL editor
-[ ] Add SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY as GitHub Actions secrets
-[ ] npm run pipeline → confirm first run works
+[x] Create .env file with all saved values
+[x] Run schema.sql in Supabase SQL editor
+[x] Add SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY as GitHub Actions secrets
+[x] npm run pipeline → confirmed — 4 ideas written, 4 evaluations scored (WATCH 55/100)
 ```
 
 ---
@@ -38,7 +38,7 @@ Running Node v22.14.0 — well above v18 requirement.
 
 ---
 
-## ⬜ Step 5 — Create .env File
+## ✅ Step 5 — Create .env File (DONE)
 Create the real `.env` file in `venture-studio/` with all saved values:
 ```bash
 cd "/Users/tylerhuffman/Documents/DEV PROJECTS/thuff-idea-lab/venture-studio"
@@ -54,7 +54,7 @@ Values to paste in:
 
 ---
 
-## ⬜ Step 6 — Run Database Schema in Supabase
+## ✅ Step 6 — Run Database Schema in Supabase (DONE)
 1. Go to **supabase.com → your venture-studio project → SQL Editor**
 2. Paste the contents of `venture-studio/prisma/schema.sql`
 3. Click **Run**
@@ -62,7 +62,7 @@ Values to paste in:
 
 ---
 
-## ⬜ Step 7 — Add GitHub Actions Secrets
+## ✅ Step 7 — Add GitHub Actions Secrets (DONE)
 So the nightly pipeline can connect to Supabase when it runs in the cloud:
 1. Go to **github.com/thuff-idea-lab/venture-studio → Settings → Secrets and variables → Actions**
 2. Add two secrets:
@@ -76,7 +76,7 @@ So the nightly pipeline can connect to Supabase when it runs in the cloud:
 
 ---
 
-## ⬜ Step 8 — First Pipeline Run
+## ✅ Step 8 — First Pipeline Run (DONE)
 ```bash
 cd "/Users/tylerhuffman/Documents/DEV PROJECTS/thuff-idea-lab/venture-studio"
 npm run pipeline
