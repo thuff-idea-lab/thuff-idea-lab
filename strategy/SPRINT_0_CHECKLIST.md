@@ -2,62 +2,86 @@
 
 ## Quick Reference
 ```
-[ ] GitHub PAT with models scope → saved in .env
-[ ] Supabase project created → 3 env vars copied
-[ ] venture-studio repo created + cloned locally
-[ ] commit.gpgsign false set on new repo
-[ ] node --version confirms v18+
+[x] GitHub PAT with models scope → saved locally (add to .env next)
+[x] Supabase project created → 3 env vars copied
+[x] venture-studio repo created + cloned locally
+[x] commit.gpgsign false set on new repo
+[x] node --version confirms v18+ (running v22)
+[ ] Create .env file with all saved values
+[ ] Run schema.sql in Supabase SQL editor
+[ ] Add SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY as GitHub Actions secrets
+[ ] npm run pipeline → confirm first run works
 ```
-**Estimated time: ~15 minutes total**
 
 ---
 
-## Step 1 — GitHub Personal Access Token (30 seconds)
-Powers free AI calls via GitHub Models. Not a new account — just a token from your existing GitHub.
-
-1. Go to **github.com → Settings → Developer Settings → Personal Access Tokens → Fine-grained tokens**
-2. Click **Generate new token**
-3. Set expiration: 1 year
-4. Under **Permissions** → add `models: read`
-5. Copy it → this becomes `GITHUB_TOKEN` in your `.env`
+## ✅ Step 1 — GitHub Personal Access Token (DONE)
+Token generated with `models: read` scope. Saved locally — add to `.env` in next step.
 
 ---
 
-## Step 2 — Supabase Account (5 min — free)
-Your database. Nothing in Phase 1 works without it.
-
-1. Sign up at **supabase.com** with your GitHub account (one click)
-2. Create a new project called `venture-studio`
-3. After it spins up, grab three values from **Settings → Database**:
-   - **Project URL** → `SUPABASE_URL`
-   - **Anon public key** → `SUPABASE_ANON_KEY`
-   - **Connection string (URI mode)** → `DATABASE_URL`
+## ✅ Step 2 — Supabase Account (DONE)
+Project `venture-studio` created. Three values saved locally:
+- `SUPABASE_URL`
+- `SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
 
 ---
 
-## Step 3 — Create the Code Repo (2 min)
-The `documentation` repo exists. You need a separate repo for the actual studio code.
-
-1. Create a new GitHub repo called `venture-studio`
-2. Clone it locally:
-   ```bash
-   cd "/Users/tylerhuffman/Documents/DEV PROJECTS/thuff-idea-lab"
-   git clone https://github.com/<your-username>/venture-studio.git
-   ```
-3. Immediately disable 1Password signing on the new repo:
-   ```bash
-   cd venture-studio
-   git config --local commit.gpgsign false
-   ```
+## ✅ Step 3 — Create the Code Repo (DONE)
+Repo `venture-studio` created on GitHub, cloned locally, `commit.gpgsign false` set.
 
 ---
 
-## Step 4 — Verify Node.js (1 min)
+## ✅ Step 4 — Verify Node.js (DONE)
+Running Node v22.14.0 — well above v18 requirement.
+
+---
+
+## ⬜ Step 5 — Create .env File
+Create the real `.env` file in `venture-studio/` with all saved values:
 ```bash
-node --version   # need v18 or higher
-npm --version
+cd "/Users/tylerhuffman/Documents/DEV PROJECTS/thuff-idea-lab/venture-studio"
+cp .env.example .env
+# then fill in real values
 ```
-If missing: download LTS from **nodejs.org**
+
+Values to paste in:
+- `GITHUB_TOKEN` — your GitHub PAT
+- `SUPABASE_URL` — your project URL
+- `SUPABASE_ANON_KEY` — your publishable key
+- `SUPABASE_SERVICE_ROLE_KEY` — your secret key
+
+---
+
+## ⬜ Step 6 — Run Database Schema in Supabase
+1. Go to **supabase.com → your venture-studio project → SQL Editor**
+2. Paste the contents of `venture-studio/prisma/schema.sql`
+3. Click **Run**
+4. Verify tables appear: `ideas`, `evaluations`, `projects`
+
+---
+
+## ⬜ Step 7 — Add GitHub Actions Secrets
+So the nightly pipeline can connect to Supabase when it runs in the cloud:
+1. Go to **github.com/thuff-idea-lab/venture-studio → Settings → Secrets and variables → Actions**
+2. Add two secrets:
+
+| Secret Name | Value |
+|-------------|-------|
+| `SUPABASE_URL` | your project URL |
+| `SUPABASE_SERVICE_ROLE_KEY` | your secret key |
+
+(`GITHUB_TOKEN` is automatic — no setup needed)
+
+---
+
+## ⬜ Step 8 — First Pipeline Run
+```bash
+cd "/Users/tylerhuffman/Documents/DEV PROJECTS/thuff-idea-lab/venture-studio"
+npm run pipeline
+```
+✅ Done when: ideas appear in your Supabase `ideas` table.
 
 ---
 
